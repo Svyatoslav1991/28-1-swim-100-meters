@@ -24,23 +24,11 @@ int main() {
 		vFutures.push_back(std::async(&Swimmer::swim, &swimmer));
 	}
 	
+	
 	for (auto& future : vFutures)
 	{
 		future.wait();
 	}
-
-	std::sort(vSwimmers.begin(), vSwimmers.end(), [](const auto& s1, const auto& s2)
-		{
-			return s1.getTime() < s2.getTime();
-		});
-
-	std::cout << "\n\tRESULTS:\n";
-	int64_t place = 1;
-	for (const auto& swimmer : vSwimmers)
-	{
-		std::cout << place++ << ": " << swimmer.getName() << "\t" << swimmer.getTime() << "\n";
-	}
-
 
 
 	return 0;

@@ -1,6 +1,7 @@
 #include "..\include\functions.h"
 #include <random>
 #include <cmath>
+#include <iostream>
 
 float generateSpeed() noexcept
 {

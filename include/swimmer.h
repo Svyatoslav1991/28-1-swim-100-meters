@@ -2,7 +2,6 @@
 #include <string>
 
 
-
 class Swimmer
 {
 public:
@@ -17,3 +16,4 @@ private:
 	float m_speed;
 	int64_t m_time;
 };
+
