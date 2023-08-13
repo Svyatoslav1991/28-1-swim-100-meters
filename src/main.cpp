@@ -26,19 +26,12 @@ int main() {
 		vThreads.push_back(std::thread(&Swimmer::swim, &swimmer, std::ref(vResult)));
 	}
 	
-	
 	for (auto& thread : vThreads)
 	{
 		thread.join();
 	}
 
-	std::cout << "\n\tRESULTS:\n";
-
-	int64_t place = 1;
-	for (const auto& swimmer : vResult)
-	{
-		std::cout << place++ << ": " << swimmer.getName() << "\t" << swimmer.getTime() << "\n";
-	}
+	printResults(vResult);
 
 
 	return 0;

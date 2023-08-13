@@ -15,3 +15,16 @@ float generateSpeed() noexcept
 	
 	return speed;
 }
+
+//---------------------------------------------------------------
+
+void printResults(const std::vector<Swimmer>& vResults) noexcept
+{
+	std::cout << "\n\tRESULTS:\n";
+
+	int64_t place = 1;
+	for (const auto& swimmer : vResults)
+	{
+		std::cout << place++ << ": " << swimmer.getName() << "\t" << swimmer.getTime() << "\n";
+	}
+}
