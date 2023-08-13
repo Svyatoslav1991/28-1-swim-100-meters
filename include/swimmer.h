@@ -1,13 +1,13 @@
 #pragma once
 #include <string>
-
+#include <vector>
 
 class Swimmer
 {
 public:
 	Swimmer(std::string name, float speed);
 
-	void swim();
+	void swim(std::vector<Swimmer>& vResults);
 	std::string getName() const;
 	int64_t getTime() const;
 

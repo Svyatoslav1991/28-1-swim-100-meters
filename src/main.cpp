@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <future>
+#include <thread>
 #include <algorithm>
 
 #include "functions.h"
@@ -17,17 +17,27 @@ int main() {
 		vSwimmers.push_back(Swimmer("swimmer_" + std::to_string(i + 1), generateSpeed()));
 	}
 	
-	std::vector<std::future<void>> vFutures;
+	std::vector<std::thread> vThreads;
+
+	std::vector<Swimmer> vResult;
 
 	for (auto& swimmer : vSwimmers)
 	{
-		vFutures.push_back(std::async(&Swimmer::swim, &swimmer));
+		vThreads.push_back(std::thread(&Swimmer::swim, &swimmer, std::ref(vResult)));
 	}
 	
 	
-	for (auto& future : vFutures)
+	for (auto& thread : vThreads)
 	{
-		future.wait();
+		thread.join();
+	}
+
+	std::cout << "\n\tRESULTS:\n";
+
+	int64_t place = 1;
+	for (const auto& swimmer : vResult)
+	{
+		std::cout << place++ << ": " << swimmer.getName() << "\t" << swimmer.getTime() << "\n";
 	}
 
 

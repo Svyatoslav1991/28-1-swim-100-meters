@@ -2,13 +2,12 @@
 #include <thread>
 #include <iostream>
 #include <mutex>
-#include <vector>
 #include "functions.h"
 
 
 std::mutex mtx;
 std::mutex res_mtx;
-static std::vector<Swimmer> vResult;
+
 
 
 Swimmer::Swimmer(std::string name, float speed) : m_name(name), m_speed(speed), m_time(0)
@@ -17,7 +16,7 @@ Swimmer::Swimmer(std::string name, float speed) : m_name(name), m_speed(speed), 
 
 /////////////////////////////////////////////////////////////////////////////////
 
-void Swimmer::swim()
+void Swimmer::swim(std::vector<Swimmer>& vResults)
 {
 	float distance = 0.f;
 
@@ -37,20 +36,7 @@ void Swimmer::swim()
 	}
 
 	std::unique_lock<std::mutex> ul2(res_mtx);
-	vResult.push_back(std::move(*this));
-
-	if (vResult.size() == N)
-	{
-		std::cout << "\n\tRESULTS:\n";
-
-		int64_t place = 1;
-		std::unique_lock<std::mutex> lock(res_mtx);
-		for (const auto& swimmer : vResult)
-		{
-			std::cout << place++ << ": " << swimmer.getName() << "\t" << swimmer.getTime() << "\n";
-		}
-
-	}
+	vResults.push_back(std::move(*this));
 }
 
 /////////////////////////////////////////////////////////////////////////////////
